@@ -2,10 +2,13 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Resume – Basak Erdem ePortfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=1.0">
 </head>
 <body>
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -18,21 +21,23 @@
 <button class="hamburger" id="hamburger">☰</button>
 </div></nav>
 
-<!-- ═══════ GRADIENT MESH HERO ═══════ -->
-<div class="mesh-hero">
-  <div class="detail-icon">📋</div>
-  <h1>Resume</h1>
-  <p>Professional qualifications, certifications, experience, and education.</p>
-  <div class="hero-bar"></div>
-  <a href="BE_Resume.pdf" class="btn btn-hero" target="_blank">⬇ Download Resume (PDF)</a>
-</div>
+<!-- ═══════ HERO WITH PARTICLES ═══════ -->
+<section class="hero" id="resume-hero" style="text-align:center">
+  <canvas id="particleCanvas"></canvas>
+  <div style="position:relative;z-index:1">
+    <div style="font-size:56px;margin-bottom:16px">📋</div>
+    <h1 style="font-size:36px;margin-bottom:8px;background:var(--gradient-title);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Resume</h1>
+    <p style="color:var(--text-secondary);font-size:15px;max-width:600px;margin:0 auto 24px">Professional qualifications, certifications, experience, and education.</p>
+    <div style="height:4px;border-radius:2px;width:80px;margin:0 auto 28px;background:var(--accent)"></div>
+    <a href="BE_Resume.pdf" class="btn" style="font-size:15px;padding:14px 28px;box-shadow:0 4px 20px rgba(74,144,217,0.3)" target="_blank">⬇ Download Resume (PDF)</a>
+  </div>
+</section>
 
 <!-- ═══════ DIVIDER ═══════ -->
 <div class="divider divider-down"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="divider-shape" d="M0,0 L1200,0 L1200,20 Q600,80 0,20 Z" style="fill:var(--bg-primary)"/></svg></div>
 
 <!-- ═══════ PROFESSIONAL SUMMARY + COUNTERS ═══════ -->
 <div class="parallax-section bg-primary">
-  <div class="parallax-deco deco-circle deco-float-1" style="width:80px;height:80px;top:12%;right:6%"></div><div class="parallax-deco deco-dot deco-float-2" style="width:6px;height:6px;top:55%;left:4%"></div><div class="parallax-deco deco-diamond deco-float-4" style="width:18px;height:18px;bottom:20%;right:12%"></div>
 <div class="parallax-inner">
   <p class="section-label">Overview</p>
   <h2 class="section-title">Professional Summary</h2>
@@ -52,7 +57,6 @@
 
 <!-- ═══════ CERTIFICATIONS ═══════ -->
 <div class="parallax-section bg-secondary">
-  <div class="parallax-deco deco-ring deco-float-2" style="width:90px;height:90px;top:8%;left:4%"></div><div class="parallax-deco deco-dot deco-float-3" style="width:8px;height:8px;top:40%;right:8%"></div><div class="parallax-deco deco-circle deco-float-1" style="width:60px;height:60px;bottom:15%;right:5%"></div>
 <div class="parallax-inner">
   <p class="section-label">Credentials</p>
   <h2 class="section-title">Licenses & Certifications</h2>
@@ -139,7 +143,6 @@
 
 <!-- ═══════ KEY SKILLS ═══════ -->
 <div class="parallax-section bg-primary">
-  <div class="parallax-deco deco-circle deco-float-1" style="width:80px;height:80px;top:12%;right:6%"></div><div class="parallax-deco deco-dot deco-float-2" style="width:6px;height:6px;top:55%;left:4%"></div><div class="parallax-deco deco-diamond deco-float-4" style="width:18px;height:18px;bottom:20%;right:12%"></div>
 <div class="parallax-inner">
   <p class="section-label">Expertise</p>
   <h2 class="section-title">Key Skills</h2>
@@ -177,7 +180,6 @@
 
 <!-- ═══════ EXPERIENCE ═══════ -->
 <div class="parallax-section bg-secondary">
-  <div class="parallax-deco deco-ring deco-float-2" style="width:90px;height:90px;top:8%;left:4%"></div><div class="parallax-deco deco-dot deco-float-3" style="width:8px;height:8px;top:40%;right:8%"></div><div class="parallax-deco deco-circle deco-float-1" style="width:60px;height:60px;bottom:15%;right:5%"></div>
 <div class="parallax-inner">
   <p class="section-label">Career</p>
   <h2 class="section-title">Professional Experience</h2>
@@ -195,7 +197,6 @@
 
 <!-- ═══════ EDUCATION ═══════ -->
 <div class="parallax-section bg-primary">
-  <div class="parallax-deco deco-circle deco-float-1" style="width:80px;height:80px;top:12%;right:6%"></div><div class="parallax-deco deco-dot deco-float-2" style="width:6px;height:6px;top:55%;left:4%"></div><div class="parallax-deco deco-diamond deco-float-4" style="width:18px;height:18px;bottom:20%;right:12%"></div>
 <div class="parallax-inner">
   <p class="section-label">Academic</p>
   <h2 class="section-title">Education</h2>
@@ -249,10 +250,15 @@ let current=0;const increment=target/60;const timer=setInterval(()=>{current+=in
 el.textContent=Math.floor(current)+suffix},25);counterObs.unobserve(el)}})},{threshold:0.5});
 document.querySelectorAll('.counter-number[data-target]').forEach(el=>counterObs.observe(el));
 
-// Parallax (desktop only)
-if(!('ontouchstart' in window)&&window.innerWidth>900){
-window.addEventListener('scroll',()=>{document.querySelectorAll('.parallax-inner').forEach(inner=>{const rect=inner.parentElement.getBoundingClientRect();
-if(rect.top<window.innerHeight&&rect.bottom>0){const speed=0.05;const offset=rect.top*speed;
-inner.style.transform='translateY('+offset+'px)'}})})}</script>
+// Particles
+const canvas=document.getElementById('particleCanvas');if(canvas){const ctx=canvas.getContext('2d');let particles=[];
+function rc(){const h=canvas.parentElement;canvas.width=h.offsetWidth;canvas.height=h.offsetHeight}
+function cp(){particles=[];const density=window.innerWidth<600?25000:14000;const c=Math.floor((canvas.width*canvas.height)/density);for(let i=0;i<c;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+.5})}
+function dp(){ctx.clearRect(0,0,canvas.width,canvas.height);const t=document.documentElement.getAttribute('data-theme'),c=t==='dark'?'rgba(74,144,217,':'rgba(43,108,176,';
+particles.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=c+'0.4)';ctx.fill();
+for(let j=i+1;j<particles.length;j++){const dx=p.x-particles[j].x,dy=p.y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);const maxDist=window.innerWidth<600?80:110;if(d<maxDist){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=c+(0.12*(1-d/maxDist))+')';ctx.lineWidth=.5;ctx.stroke()}}});
+requestAnimationFrame(dp)}
+rc();cp();dp();window.addEventListener('resize',()=>{rc();cp()})}
+</script>
 </body>
 </html>
