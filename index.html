@@ -6,1094 +6,266 @@
 <title>Basak Erdem ePortfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-/* ═══════════════════════════════════════════
-   CSS VARIABLES — DARK & LIGHT THEMES
-   ═══════════════════════════════════════════ */
-:root {
-  --nav-height: 64px;
-  --max-width: 1200px;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --transition: 0.3s ease;
-}
-
-[data-theme="dark"] {
-  --bg-primary: #0B1426;
-  --bg-secondary: #111D35;
-  --bg-card: #162040;
-  --bg-card-hover: #1B2A4E;
-  --bg-nav: #0D1829;
-  --text-primary: #F0F2F8;
-  --text-secondary: #A0AECB;
-  --text-muted: #6B7A99;
-  --accent: #4A90D9;
-  --accent-light: #6AADFF;
-  --accent-glow: rgba(74, 144, 217, 0.15);
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(255,255,255,0.12);
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
-  --shadow-hover: 0 8px 40px rgba(0,0,0,0.4);
-  --skill-comm: #4A90D9;
-  --skill-num: #5BA88C;
-  --skill-crit: #D97B4A;
-  --skill-info: #8B6AD9;
-  --skill-inter: #D94A6A;
-  --skill-personal: #C9A84A;
-  --check-color: #5BA88C;
-  --hero-overlay: linear-gradient(135deg, rgba(11,20,38,0.95) 0%, rgba(22,32,64,0.85) 100%);
-  --photo-border: var(--accent);
-}
-
-[data-theme="light"] {
-  --bg-primary: #F4F6FB;
-  --bg-secondary: #FFFFFF;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #F8FAFF;
-  --bg-nav: #FFFFFF;
-  --text-primary: #1A2340;
-  --text-secondary: #4A5568;
-  --text-muted: #8795A8;
-  --accent: #2B6CB0;
-  --accent-light: #3B82C4;
-  --accent-glow: rgba(43, 108, 176, 0.08);
-  --border: rgba(0,0,0,0.08);
-  --border-hover: rgba(0,0,0,0.14);
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.06);
-  --shadow-hover: 0 6px 24px rgba(0,0,0,0.1);
-  --skill-comm: #2B6CB0;
-  --skill-num: #2F855A;
-  --skill-crit: #C05621;
-  --skill-info: #6B46C1;
-  --skill-inter: #C53030;
-  --skill-personal: #B7791F;
-  --check-color: #2F855A;
-  --hero-overlay: linear-gradient(135deg, rgba(244,246,251,0.95) 0%, rgba(255,255,255,0.9) 100%);
-  --photo-border: var(--accent);
-}
-
-/* ═══════════════════════════════════════════
-   RESET & BASE
-   ═══════════════════════════════════════════ */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-height);
-}
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  transition: background var(--transition), color var(--transition);
-}
-
-h1, h2, h3 { font-family: 'Playfair Display', serif; }
-
-a { text-decoration: none; color: inherit; }
-
-/* ═══════════════════════════════════════════
-   NAVIGATION
-   ═══════════════════════════════════════════ */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--nav-height);
-  background: var(--bg-nav);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  z-index: 1000;
-  transition: background var(--transition), border var(--transition);
-}
-
-.nav-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-}
-
-.nav-brand {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-primary);
-}
-
-.nav-brand span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  gap: 4px;
-  list-style: none;
-  align-items: center;
-}
-
-.nav-links a {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition);
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--accent);
-  background: var(--accent-glow);
-}
-
-.theme-toggle {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all var(--transition);
-  margin-left: 12px;
-}
-
-.theme-toggle:hover {
-  border-color: var(--accent);
-  background: var(--accent-glow);
-}
-
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* ═══════════════════════════════════════════
-   HERO SECTION
-   ═══════════════════════════════════════════ */
-.hero {
-  margin-top: var(--nav-height);
-  padding: 80px 24px 60px;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-  transition: background var(--transition);
-}
-
-.hero-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 60px;
-  align-items: center;
-}
-
-.hero-content h1 {
-  font-size: 42px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-.hero-content h1 span {
-  color: var(--accent);
-}
-
-.hero-content p {
-  font-size: 16px;
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin-bottom: 40px;
-  line-height: 1.7;
-}
-
-/* Skill Icons Row */
-.skill-icons {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.skill-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  width: 120px;
-  transition: all var(--transition);
-  cursor: default;
-}
-
-.skill-icon:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card);
-}
-
-.skill-icon svg {
-  width: 28px;
-  height: 28px;
-}
-
-.skill-icon span {
-  font-size: 10px;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 0.5px;
-  color: var(--text-secondary);
-  line-height: 1.3;
-}
-
-/* Photo */
-.hero-photo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.photo-frame {
-  width: 220px;
-  height: 260px;
-  border-radius: var(--radius);
-  border: 3px solid var(--photo-border);
-  overflow: hidden;
-  background: var(--bg-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 13px;
-  position: relative;
-}
-
-.photo-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.photo-placeholder svg {
-  width: 48px;
-  height: 48px;
-  opacity: 0.4;
-}
-
-.hero-photo .name-label {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.hero-photo .role-label {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-top: -8px;
-}
-
-/* ═══════════════════════════════════════════
-   SECTION: INFO CARDS (Intro, Resume, EES)
-   ═══════════════════════════════════════════ */
-.section {
-  padding: 60px 24px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.section-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.section-title {
-  font-size: 32px;
-  margin-bottom: 40px;
-}
-
-/* Info Cards Row */
-.info-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 0 24px 60px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.info-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px 28px;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.info-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-card);
-  transform: translateY(-2px);
-}
-
-.info-card h3 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.info-card p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.info-card .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-weight: 600;
-  transition: all var(--transition);
-}
-
-.info-card .btn:hover {
-  background: var(--accent-light);
-}
-
-.ees-list {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 2;
-}
-
-.ees-list .check {
-  color: var(--check-color);
-  margin-right: 4px;
-}
-
-/* ═══════════════════════════════════════════
-   INTRODUCTION & RESUME SECTIONS
-   ═══════════════════════════════════════════ */
-.intro-section,
-.resume-section {
-  padding: 60px 24px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.intro-content,
-.resume-content {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 40px;
-}
-
-.intro-content p,
-.resume-content p {
-  color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.8;
-  margin-bottom: 16px;
-}
-
-.resume-download {
-  margin-top: 20px;
-}
-
-.resume-heading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.cert-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.cert-card {
-  display: flex;
-  gap: 14px;
-  padding: 18px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition);
-}
-
-.cert-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-card);
-}
-
-.cert-icon {
-  font-size: 28px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.cert-details h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.cert-issuer {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 2px;
-}
-
-.cert-meta {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.cert-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.cert-tag {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 3px 10px;
-  background: var(--accent-glow);
-  color: var(--accent);
-  border-radius: 20px;
-  border: 1px solid var(--border);
-}
-
-.skills-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.skill-tag {
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 16px;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  transition: all var(--transition);
-}
-
-.skill-tag:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-glow);
-}
-
-/* ═══════════════════════════════════════════
-   SKILL CARDS GRID
-   ═══════════════════════════════════════════ */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 0 24px 80px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.skill-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: all var(--transition);
-}
-
-.skill-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-card);
-  transform: translateY(-3px);
-}
-
-.skill-card-header {
-  padding: 14px 20px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #fff;
-  text-align: center;
-}
-
-.skill-card-body {
-  padding: 24px 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.artifact-side h4,
-.reflection-side h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  color: var(--text-primary);
-}
-
-.artifact-preview {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  min-height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 12px;
-  text-align: center;
-}
-
-.reflection-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.reflection-list li {
-  font-size: 13px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  line-height: 1.5;
-}
-
-.reflection-list li::before {
-  content: "✓";
-  color: var(--check-color);
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* Skill-specific header colors */
-.skill-comm .skill-card-header { background: var(--skill-comm); }
-.skill-num .skill-card-header { background: var(--skill-num); }
-.skill-crit .skill-card-header { background: var(--skill-crit); }
-.skill-info .skill-card-header { background: var(--skill-info); }
-.skill-inter .skill-card-header { background: var(--skill-inter); }
-.skill-personal .skill-card-header { background: var(--skill-personal); }
-
-/* ═══════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════ */
-.footer {
-  padding: 24px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text-muted);
-  background: var(--bg-secondary);
-}
-
-/* ═══════════════════════════════════════════
-   MOBILE RESPONSIVE
-   ═══════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-  .hero-photo { order: -1; }
-  .info-cards { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: var(--nav-height);
-    left: 0;
-    right: 0;
-    background: var(--bg-nav);
-    border-bottom: 1px solid var(--border);
-    padding: 16px;
-    gap: 4px;
-  }
-  .hamburger { display: block; }
-}
-
-@media (max-width: 600px) {
-  .hero-content h1 { font-size: 28px; }
-  .skill-icons { justify-content: center; }
-  .skill-icon { width: 100px; }
-  .skill-card-body { grid-template-columns: 1fr; }
-  .intro-content, .resume-content { padding: 24px; }
-  .cert-grid { grid-template-columns: 1fr; }
-}
-
-/* ═══════════════════════════════════════════
-   SCROLL ANIMATIONS
-   ═══════════════════════════════════════════ */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Index-only: stronger fixed parallax backgrounds */
+.parallax-section::before{opacity:1 !important}
+.parallax-section.bg-primary::before{
+  background-image:
+    radial-gradient(circle 300px at 15% 40%, rgba(74,144,217,0.1) 0%, transparent 100%),
+    radial-gradient(circle 200px at 85% 25%, rgba(139,106,217,0.08) 0%, transparent 100%),
+    radial-gradient(circle 150px at 50% 80%, rgba(91,168,140,0.06) 0%, transparent 100%),
+    radial-gradient(circle 80px at 70% 60%, rgba(74,144,217,0.12) 0%, transparent 100%),
+    radial-gradient(circle 400px at 30% 70%, rgba(201,168,74,0.04) 0%, transparent 100%) !important;
+  background-attachment:fixed !important;
+}
+.parallax-section.bg-secondary::before{
+  background-image:
+    radial-gradient(circle 250px at 75% 50%, rgba(91,168,140,0.1) 0%, transparent 100%),
+    radial-gradient(circle 350px at 20% 30%, rgba(74,144,217,0.08) 0%, transparent 100%),
+    radial-gradient(circle 120px at 60% 15%, rgba(139,106,217,0.1) 0%, transparent 100%),
+    radial-gradient(circle 180px at 40% 85%, rgba(217,74,106,0.05) 0%, transparent 100%),
+    radial-gradient(circle 90px at 90% 75%, rgba(74,144,217,0.12) 0%, transparent 100%) !important;
+  background-attachment:fixed !important;
+}
+[data-theme="light"] .parallax-section.bg-primary::before{
+  background-image:
+    radial-gradient(circle 300px at 15% 40%, rgba(43,108,176,0.08) 0%, transparent 100%),
+    radial-gradient(circle 200px at 85% 25%, rgba(107,70,193,0.06) 0%, transparent 100%),
+    radial-gradient(circle 150px at 50% 80%, rgba(47,133,90,0.05) 0%, transparent 100%),
+    radial-gradient(circle 80px at 70% 60%, rgba(43,108,176,0.1) 0%, transparent 100%) !important;
+}
+[data-theme="light"] .parallax-section.bg-secondary::before{
+  background-image:
+    radial-gradient(circle 250px at 75% 50%, rgba(47,133,90,0.07) 0%, transparent 100%),
+    radial-gradient(circle 350px at 20% 30%, rgba(43,108,176,0.06) 0%, transparent 100%),
+    radial-gradient(circle 120px at 60% 15%, rgba(107,70,193,0.08) 0%, transparent 100%) !important;
+}
+@media(max-width:900px){
+  .parallax-section::before{background-attachment:scroll !important;opacity:0.5 !important}
 }
 </style>
 </head>
 <body>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- ═══════════════ NAVIGATION ═══════════════ -->
-<nav class="nav">
+<nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <div class="nav-brand">Basak Erdem <span>ePortfolio</span></div>
+    <a href="index.html" class="nav-brand">Basak Erdem <span>ePortfolio</span></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#resume">Resume</a></li>
-      <li><a href="#communication">Communication</a></li>
-      <li><a href="#numeracy">Numeracy</a></li>
-      <li><a href="#critical-thinking">Critical Thinking</a></li>
-      <li><a href="#information">Information</a></li>
-      <li><a href="#interpersonal">Interpersonal</a></li>
-      <li><a href="#personal">Personal</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="communication.html">Communication</a></li>
+      <li><a href="numeracy.html">Numeracy</a></li>
+      <li><a href="critical-thinking.html">Critical</a></li>
+      <li><a href="information.html">Information</a></li>
+      <li><a href="interpersonal.html">Interpersonal</a></li>
+      <li><a href="personal.html">Personal</a></li>
     </ul>
-    <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
     <button class="hamburger" id="hamburger">☰</button>
   </div>
 </nav>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ═══════ HERO ═══════ -->
 <section class="hero" id="home">
+  <canvas id="particleCanvas"></canvas>
   <div class="hero-inner">
     <div class="hero-content">
-      <h1>Welcome to <span>My ePortfolio</span></h1>
-      <p>This portfolio demonstrates my mastery of the Essential Employability Skills developed throughout the Office Administration program. Each section includes an artifact and a reflection that highlights my learning and growth.</p>
+      <h1 id="typingTarget"></h1>
+      <p>This portfolio demonstrates my mastery of the Essential Employability Skills developed throughout the Medical Office Administration program at Durham College. Each section includes an artifact and a reflection that highlights my learning and growth.</p>
       <div class="skill-icons">
-        <div class="skill-icon fade-in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-comm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>Communication Skills</span>
-        </div>
-        <div class="skill-icon fade-in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-num)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
-          <span>Numeracy</span>
-        </div>
-        <div class="skill-icon fade-in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-crit)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span>Critical Thinking & Problem Solving</span>
-        </div>
-        <div class="skill-icon fade-in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-info)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span>Information Management</span>
-        </div>
-        <div class="skill-icon fade-in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-inter)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span>Interpersonal Skills</span>
-        </div>
-        <div class="skill-icon fade-in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-personal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>Personal Skills</span>
-        </div>
+        <a href="communication.html" class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-comm)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Communication</span></a>
+        <a href="numeracy.html" class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-num)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg><span>Numeracy</span></a>
+        <a href="critical-thinking.html" class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-crit)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Critical Thinking</span></a>
+        <a href="information.html" class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-info)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Information Mgmt</span></a>
+        <a href="interpersonal.html" class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-inter)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Interpersonal</span></a>
+        <a href="personal.html" class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--skill-personal)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Personal</span></a>
       </div>
     </div>
     <div class="hero-photo">
-      <div class="photo-frame">
-        <!-- Replace with: <img src="photo.jpg" alt="Basak Erdem"> -->
-        <div class="photo-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>Your Photo</span>
-        </div>
-      </div>
+      <div class="photo-frame"><img src="photo.png" alt="Basak Erdem" style="object-position:center 15%"></div>
       <div class="name-label">Basak Erdem</div>
-      <div class="role-label">Office Administration Student</div>
+      <div class="role-label">Medical Office Administration Student</div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ INFO CARDS ═══════════════ -->
-<div class="info-cards">
-  <div class="info-card fade-in">
-    <h3>Introduction</h3>
-    <p>Learn about me and the purpose of this ePortfolio, including an overview of each Essential Employability Skill.</p>
-    <a href="#introduction" class="btn">Learn More →</a>
-  </div>
-  <div class="info-card fade-in">
-    <h3>Resume</h3>
-    <p>View or download my professional resume highlighting my skills and qualifications.</p>
-    <a href="#resume" class="btn">View Resume →</a>
-  </div>
-  <div class="info-card fade-in">
-    <h3>Essential Employability Skills</h3>
-    <p>Each section includes an artifact and a reflection covering all six Essential Employability Skills:</p>
-    <div class="ees-list">
-      <span class="check">✓</span> Communication &nbsp;
-      <span class="check">✓</span> Numeracy &nbsp;
-      <span class="check">✓</span> Critical Thinking<br>
-      <span class="check">✓</span> Information Management &nbsp;
-      <span class="check">✓</span> Interpersonal &nbsp;
-      <span class="check">✓</span> Personal
+<!-- ═══════ DIVIDER: hero → info cards ═══════ -->
+<div class="divider divider-down"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="divider-shape" d="M0,0 L1200,0 L1200,20 Q600,80 0,20 Z" style="fill:var(--bg-primary)"/></svg></div>
+
+<!-- ═══════ INFO CARDS (bg-primary) ═══════ -->
+<div class="parallax-section bg-primary">
+  <div class="parallax-inner">
+    <div class="info-cards">
+      <div class="info-card fade-in"><h3>Introduction</h3><p>Learn about me and the purpose of this ePortfolio, including an overview of each Essential Employability Skill.</p><a href="#introduction" class="btn">Learn More →</a></div>
+      <div class="info-card fade-in"><h3>Resume</h3><p>View my professional resume with certifications, experience, and qualifications.</p><a href="resume.html" class="btn">View Resume →</a></div>
+      <div class="info-card fade-in"><h3>Essential Employability Skills</h3><p>Each section includes an artifact and reflection covering all six EES:</p><div class="ees-list"><span class="check">✓</span> Communication <span class="check">✓</span> Numeracy <span class="check">✓</span> Critical Thinking<br><span class="check">✓</span> Information Mgmt <span class="check">✓</span> Interpersonal <span class="check">✓</span> Personal</div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ INTRODUCTION SECTION ═══════════════ -->
-<section class="intro-section" id="introduction">
-  <p class="section-label">About Me</p>
-  <h2 class="section-title">Introduction</h2>
-  <div class="intro-content fade-in">
-    <p><!-- REPLACE: Write your introduction here. Include who you are, your program, and an overview of your ePortfolio. --><em>[Your introduction goes here. Describe who you are, your journey in the Office Administration program, and an overview of how this ePortfolio is organized to demonstrate your Essential Employability Skills.]</em></p>
-  </div>
-</section>
+<!-- ═══════ DIVIDER ═══════ -->
+<div class="divider divider-up"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="divider-shape" d="M0,60 L0,40 Q600,-20 1200,40 L1200,60 Z"/></svg></div>
 
-<!-- ═══════════════ RESUME SECTION ═══════════════ -->
-<section class="resume-section" id="resume">
-  <p class="section-label">My Qualifications</p>
-  <h2 class="section-title">Resume</h2>
-  <div class="resume-content fade-in">
-
-    <!-- CERTIFICATIONS -->
-    <h3 class="resume-heading">Licenses & Certifications</h3>
-    <div class="cert-grid">
-      <div class="cert-card">
-        <div class="cert-icon">📄</div>
-        <div class="cert-details">
-          <h4>Microsoft Office Specialist: Word Associate</h4>
-          <p class="cert-issuer">Certiport – A Pearson VUE Business</p>
-          <p class="cert-meta">Microsoft 365 Apps · Issued Feb 2026 · Expires Feb 2031</p>
-          <div class="cert-tags"><span class="cert-tag">Microsoft Word</span></div>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">📊</div>
-        <div class="cert-details">
-          <h4>Microsoft Office Specialist: PowerPoint Associate</h4>
-          <p class="cert-issuer">Certiport – A Pearson VUE Business</p>
-          <p class="cert-meta">Microsoft 365 Apps · Issued Dec 2025 · Expires Dec 2030</p>
-          <div class="cert-tags"><span class="cert-tag">Microsoft PowerPoint</span></div>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">📋</div>
-        <div class="cert-details">
-          <h4>Google Project Management</h4>
-          <p class="cert-issuer">Coursera</p>
-          <p class="cert-meta">Issued Feb 2025</p>
-          <div class="cert-tags"><span class="cert-tag">Project Management</span></div>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🎨</div>
-        <div class="cert-details">
-          <h4>Use Canva to Create Desktop and Mobile-friendly Web Pages</h4>
-          <p class="cert-issuer">Coursera Course Certificates</p>
-          <p class="cert-meta">Issued Apr 2024</p>
-          <div class="cert-tags">
-            <span class="cert-tag">Canva</span>
-            <span class="cert-tag">UX Design</span>
-            <span class="cert-tag">Web Design</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SKILLS SUMMARY -->
-    <h3 class="resume-heading" style="margin-top: 32px;">Key Skills</h3>
-    <div class="skills-tags">
-      <span class="skill-tag">Microsoft Word</span>
-      <span class="skill-tag">Microsoft PowerPoint</span>
-      <span class="skill-tag">Microsoft 365</span>
-      <span class="skill-tag">Project Management</span>
-      <span class="skill-tag">Canva</span>
-      <span class="skill-tag">UX Design</span>
-      <span class="skill-tag">Web Design</span>
-      <span class="skill-tag">Office Administration</span>
-    </div>
-
-    <!-- PLACEHOLDER for additional resume content -->
-    <h3 class="resume-heading" style="margin-top: 32px;">Education</h3>
-    <p style="color: var(--text-muted); font-style: italic;">[Your education details will go here]</p>
-
-    <h3 class="resume-heading" style="margin-top: 32px;">Work Experience</h3>
-    <p style="color: var(--text-muted); font-style: italic;">[Your work experience will go here]</p>
-
-    <div class="resume-download">
-      <a href="#" class="btn" download>⬇ Download Resume (PDF)</a>
+<!-- ═══════ INTRODUCTION (bg-secondary) ═══════ -->
+<div class="parallax-section bg-secondary" id="introduction">
+  <div class="parallax-inner">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Introduction</h2>
+    <div class="intro-content fade-in">
+      <p>My name is Basak Erdem, and I am a Medical Office Administration student at Durham College in Oshawa, Ontario. With over 17 years of professional experience spanning education, administrative support, and client service across two countries, I bring a strong foundation in communication, organization, and problem-solving to the healthcare field.</p>
+      <p>I hold a Bachelor's degree in English Language Teaching from Gazi University in Ankara, Turkiye, and have since earned certifications in Microsoft Office (Word and PowerPoint), Google Project Management, and web design through Canva. I am proud to be on the Dean's Honour List for Fall 2025.</p>
+      <p>This ePortfolio showcases my mastery of the Essential Employability Skills developed throughout the Medical Office Administration program. Each section features a unique artifact from my coursework along with a reflection that highlights my learning, growth, and the impact on my professional future.</p>
     </div>
   </div>
-</section>
-
-<!-- ═══════════════ EES SECTION HEADER ═══════════════ -->
-<section class="section" id="ees-skills">
-  <p class="section-label">Artifacts & Reflections</p>
-  <h2 class="section-title">Essential Employability Skills</h2>
-</section>
-
-<!-- ═══════════════ SKILL CARDS GRID ═══════════════ -->
-<div class="skills-grid">
-
-  <!-- COMMUNICATION -->
-  <div class="skill-card skill-comm fade-in" id="communication">
-    <div class="skill-card-header">Communication Skills</div>
-    <div class="skill-card-body">
-      <div class="artifact-side">
-        <h4>Artifact</h4>
-        <div class="artifact-preview">
-          <!-- REPLACE: Insert artifact image or description -->
-          📝 MEMO<br><em>Your artifact here</em>
-        </div>
-      </div>
-      <div class="reflection-side">
-        <h4>Reflection</h4>
-        <ul class="reflection-list">
-          <li>Clear written communication</li>
-          <li>Professional formatting</li>
-          <li>Addressed audience needs</li>
-          <li>Improved clarity and structure</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- NUMERACY -->
-  <div class="skill-card skill-num fade-in" id="numeracy">
-    <div class="skill-card-header">Numeracy</div>
-    <div class="skill-card-body">
-      <div class="artifact-side">
-        <h4>Artifact</h4>
-        <div class="artifact-preview">
-          📊 BUDGET PLAN<br><em>Your artifact here</em>
-        </div>
-      </div>
-      <div class="reflection-side">
-        <h4>Reflection</h4>
-        <ul class="reflection-list">
-          <li>Accurate calculations</li>
-          <li>Data organization</li>
-          <li>Budget analysis</li>
-          <li>Attention to detail</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- CRITICAL THINKING -->
-  <div class="skill-card skill-crit fade-in" id="critical-thinking">
-    <div class="skill-card-header">Critical Thinking & Problem Solving</div>
-    <div class="skill-card-body">
-      <div class="artifact-side">
-        <h4>Artifact</h4>
-        <div class="artifact-preview">
-          🔍 CASE STUDY<br><em>Your artifact here</em>
-        </div>
-      </div>
-      <div class="reflection-side">
-        <h4>Reflection</h4>
-        <ul class="reflection-list">
-          <li>Analyzed the problem</li>
-          <li>Evaluated options</li>
-          <li>Implemented a solution</li>
-          <li>Gained decision-making skills</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- INFORMATION MANAGEMENT -->
-  <div class="skill-card skill-info fade-in" id="information">
-    <div class="skill-card-header">Information Management</div>
-    <div class="skill-card-body">
-      <div class="artifact-side">
-        <h4>Artifact</h4>
-        <div class="artifact-preview">
-          📁 FILES<br><em>Your artifact here</em>
-        </div>
-      </div>
-      <div class="reflection-side">
-        <h4>Reflection</h4>
-        <ul class="reflection-list">
-          <li>Organized documents</li>
-          <li>Used filing system</li>
-          <li>Ensured accuracy</li>
-          <li>Improved efficiency</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- INTERPERSONAL -->
-  <div class="skill-card skill-inter fade-in" id="interpersonal">
-    <div class="skill-card-header">Interpersonal Skills</div>
-    <div class="skill-card-body">
-      <div class="artifact-side">
-        <h4>Artifact</h4>
-        <div class="artifact-preview">
-          👥 GROUP PROJECT<br><em>Your artifact here</em>
-        </div>
-      </div>
-      <div class="reflection-side">
-        <h4>Reflection</h4>
-        <ul class="reflection-list">
-          <li>Effective teamwork</li>
-          <li>Active listening</li>
-          <li>Respectful communication</li>
-          <li>Positive contribution</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- PERSONAL -->
-  <div class="skill-card skill-personal fade-in" id="personal">
-    <div class="skill-card-header">Personal Skills</div>
-    <div class="skill-card-body">
-      <div class="artifact-side">
-        <h4>Artifact</h4>
-        <div class="artifact-preview">
-          🕐 TIME MANAGEMENT<br><em>Your artifact here</em>
-        </div>
-      </div>
-      <div class="reflection-side">
-        <h4>Reflection</h4>
-        <ul class="reflection-list">
-          <li>Time management</li>
-          <li>Responsibility</li>
-          <li>Organization</li>
-          <li>Professional habits</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<footer class="footer">
-  Basak Erdem ePortfolio · Office Administration Program · Essential Employability Skills
-</footer>
+<!-- ═══════ ANIMATED COUNTERS ═══════ -->
+<div class="parallax-section bg-secondary" style="padding-top:0">
+  <div class="parallax-inner">
+    <div class="counters">
+      <div class="counter-item fade-in"><div class="counter-number" data-target="17">0</div><div class="counter-label">Years Experience</div></div>
+      <div class="counter-item fade-in"><div class="counter-number" data-target="6">0</div><div class="counter-label">Certifications</div></div>
+      <div class="counter-item fade-in"><div class="counter-number" data-target="2000">0</div><div class="counter-label">Students Taught</div></div>
+      <div class="counter-item fade-in"><div class="counter-number" data-target="98">0</div><div class="counter-label">Data Accuracy</div></div>
+    </div>
+  </div>
+</div>
 
-<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<!-- ═══════ DIVIDER ═══════ -->
+<div class="divider divider-down"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="divider-shape" d="M0,0 L1200,0 L1200,20 Q600,80 0,20 Z" style="fill:var(--bg-primary)"/></svg></div>
+
+<!-- ═══════ RESUME SNAPSHOT (bg-primary) ═══════ -->
+<div class="parallax-section bg-primary" id="resume-snap">
+  <div class="parallax-inner">
+    <p class="section-label">At a Glance</p>
+    <h2 class="section-title">Resume Snapshot</h2>
+
+    <p class="resume-snap-summary fade-in">Dedicated professional with 17+ years in education, administration, and client service. Currently pursuing Medical Office Administration certification at Durham College with a focus on patient communication, data management, and clinical operations.</p>
+
+    <div class="cert-badges fade-in">
+      <span class="cert-mini"><span class="cert-mini-icon">📄</span> MOS: Word</span>
+      <span class="cert-mini"><span class="cert-mini-icon">📊</span> MOS: PowerPoint</span>
+      <span class="cert-mini"><span class="cert-mini-icon">📋</span> Google Project Management</span>
+      <span class="cert-mini"><span class="cert-mini-icon">🎨</span> Canva Web Design</span>
+      <span class="cert-mini"><span class="cert-mini-icon">🐍</span> Python</span>
+      <span class="cert-mini"><span class="cert-mini-icon">🏆</span> Certificate of Diligence</span>
+    </div>
+
+    <div class="skills-compact fade-in">
+      <span class="skill-sm skill-stagger">Microsoft Word</span>
+      <span class="skill-sm skill-stagger">Excel</span>
+      <span class="skill-sm skill-stagger">PowerPoint</span>
+      <span class="skill-sm skill-stagger">Data Entry</span>
+      <span class="skill-sm skill-stagger">Project Management</span>
+      <span class="skill-sm skill-stagger">Canva</span>
+      <span class="skill-sm skill-stagger">Calendar Mgmt</span>
+      <span class="skill-sm skill-stagger">Record Mgmt</span>
+      <span class="skill-sm skill-stagger">Client Engagement</span>
+      <span class="skill-sm skill-stagger">Problem Solving</span>
+      <span class="skill-sm skill-stagger">Teamwork</span>
+      <span class="skill-sm skill-stagger">Turkish (Native)</span>
+    </div>
+
+    <div class="exp-list fade-in">
+      <div class="exp-item"><span class="exp-icon">🏫</span><span class="exp-title">Supply Teacher</span><span class="exp-co">— Durham District School Board, 2025</span></div>
+      <div class="exp-item"><span class="exp-icon">📚</span><span class="exp-title">English Language Teacher</span><span class="exp-co">— Ministry of Education, Turkiye, 2005–2022</span></div>
+      <div class="exp-item"><span class="exp-icon">💼</span><span class="exp-title">Data Entry & Admin Assistant</span><span class="exp-co">— Divizone Inc., 2014–2016</span></div>
+      <div class="exp-item"><span class="exp-icon">🤝</span><span class="exp-title">Volunteer Team Member</span><span class="exp-co">— Durham Outlook for the Needy, 2023–2024</span></div>
+    </div>
+
+    <a href="resume.html" class="btn fade-in">View Full Resume →</a>
+  </div>
+</div>
+
+<!-- ═══════ QUOTE BANNER ═══════ -->
+<div class="quote-banner">
+  <blockquote>"Committed to providing compassionate patient care, supporting healthcare teams, and ensuring smooth clinic operations."</blockquote>
+  <div class="quote-attr">— Basak Erdem</div>
+</div>
+
+<!-- ═══════ DIVIDER ═══════ -->
+<div class="divider divider-up"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="divider-shape" d="M0,60 L0,40 Q600,-20 1200,40 L1200,60 Z"/></svg></div>
+
+<!-- ═══════ EES CARDS (bg-secondary) ═══════ -->
+<div class="parallax-section bg-secondary">
+  <div class="parallax-inner">
+    <p class="section-label">Artifacts & Reflections</p>
+    <h2 class="section-title">Essential Employability Skills</h2>
+
+    <div class="ees-grid">
+      <a href="communication.html" class="ees-card ees-comm fade-in"><div class="ees-card-header">Communication Skills</div><div class="ees-card-body"><div class="ees-card-icon">📝</div><div class="ees-card-title">Professional Memo</div><div class="ees-card-desc">Business memo demonstrating professional formatting, audience analysis, and clear messaging.</div><span class="btn">View Details →</span></div></a>
+      <a href="numeracy.html" class="ees-card ees-num fade-in"><div class="ees-card-header">Numeracy</div><div class="ees-card-body"><div class="ees-card-icon">📊</div><div class="ees-card-title">Budget Plan & Variance Report</div><div class="ees-card-desc">Excel budget with variance calculations, formulas, and data-driven financial analysis.</div><span class="btn">View Details →</span></div></a>
+      <a href="critical-thinking.html" class="ees-card ees-crit fade-in"><div class="ees-card-header">Critical Thinking & Problem Solving</div><div class="ees-card-body"><div class="ees-card-icon">🔍</div><div class="ees-card-title">Case Study Analysis</div><div class="ees-card-desc">Workplace scenario with problem identification, options evaluation, and recommended solution.</div><span class="btn">View Details →</span></div></a>
+      <a href="information.html" class="ees-card ees-info fade-in"><div class="ees-card-header">Information Management</div><div class="ees-card-body"><div class="ees-card-icon">📁</div><div class="ees-card-title">File Management System</div><div class="ees-card-desc">Digital records system with naming conventions, folder structure, and retrieval procedures.</div><span class="btn">View Details →</span></div></a>
+      <a href="interpersonal.html" class="ees-card ees-inter fade-in"><div class="ees-card-header">Interpersonal Skills</div><div class="ees-card-body"><div class="ees-card-icon">👥</div><div class="ees-card-title">Group Project Report</div><div class="ees-card-desc">Team project showcasing collaboration, meeting coordination, and shared leadership.</div><span class="btn">View Details →</span></div></a>
+      <a href="personal.html" class="ees-card ees-personal fade-in"><div class="ees-card-header">Personal Skills</div><div class="ees-card-body"><div class="ees-card-icon">🕐</div><div class="ees-card-title">Time Management Plan</div><div class="ees-card-desc">Priority matrix balancing coursework, certifications, and professional development goals.</div><span class="btn">View Details →</span></div></a>
+    </div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" title="Back to top">↑</button>
+<footer class="footer">Basak Erdem ePortfolio · Medical Office Administration Program · Durham College</footer>
+
 <script>
-// Theme Toggle
-const toggle = document.getElementById('themeToggle');
-const html = document.documentElement;
+// ─── PARTICLES ───
+const canvas=document.getElementById('particleCanvas');if(canvas){const ctx=canvas.getContext('2d');let particles=[];
+function rc(){const h=canvas.parentElement;canvas.width=h.offsetWidth;canvas.height=h.offsetHeight}
+function cp(){particles=[];const density=window.innerWidth<600?25000:14000;const c=Math.floor((canvas.width*canvas.height)/density);for(let i=0;i<c;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+.5})}
+function dp(){ctx.clearRect(0,0,canvas.width,canvas.height);const t=document.documentElement.getAttribute('data-theme'),c=t==='dark'?'rgba(74,144,217,':'rgba(43,108,176,';
+particles.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=c+'0.4)';ctx.fill();
+for(let j=i+1;j<particles.length;j++){const dx=p.x-particles[j].x,dy=p.y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);const maxDist=window.innerWidth<600?80:110;if(d<maxDist){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=c+(0.12*(1-d/maxDist))+')';ctx.lineWidth=.5;ctx.stroke()}}});
+requestAnimationFrame(dp)}
+rc();cp();dp();window.addEventListener('resize',()=>{rc();cp()})}
 
-toggle.addEventListener('click', () => {
-  const current = html.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  toggle.textContent = next === 'dark' ? '🌙' : '☀️';
-  localStorage.setItem('theme', next);
-});
+// ─── TYPING ───
+const tt=document.getElementById('typingTarget');if(tt){const text='Welcome to My ePortfolio',as=12;let ci=0;
+function type(){if(ci<=text.length){let h='';const typed=text.slice(0,ci);if(ci<=as)h=typed+'<span class="typing-cursor"></span>';else h=typed.slice(0,as)+'<span>'+typed.slice(as)+'</span><span class="typing-cursor"></span>';tt.innerHTML=h;ci++;setTimeout(type,65+Math.random()*40)}
+else setTimeout(()=>{tt.innerHTML='Welcome to <span>My ePortfolio</span>';document.querySelector('.hero-content>p').classList.add('typed-done')},700)}
+setTimeout(type,400)}
 
-// Load saved theme
-const saved = localStorage.getItem('theme');
-if (saved) {
-  html.setAttribute('data-theme', saved);
-  toggle.textContent = saved === 'dark' ? '🌙' : '☀️';
-}
+// ─── THEME ───
+const toggle=document.getElementById('themeToggle'),ti=document.getElementById('themeIcon'),html=document.documentElement;
+const moonP='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',sunP='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+function setIcon(t){ti.innerHTML=t==='dark'?moonP:sunP}
+toggle.addEventListener('click',()=>{toggle.classList.add('rotating');setTimeout(()=>toggle.classList.remove('rotating'),500);const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);setIcon(n);localStorage.setItem('theme',n)});
+const saved=localStorage.getItem('theme');if(saved){html.setAttribute('data-theme',saved);setIcon(saved)}
 
-// Mobile hamburger
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
+// ─── SCROLL: progress + nav + back-to-top ───
+window.addEventListener('scroll',()=>{const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;
+document.getElementById('scrollProgress').style.width=(s/d)*100+'%';
+document.getElementById('mainNav').classList.toggle('scrolled',s>20);
+document.getElementById('backToTop').classList.toggle('show',s>400)});
+document.getElementById('backToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-// Close mobile menu on link click
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
-  });
-});
 
-// Active nav link on scroll
-const sections = document.querySelectorAll('section[id], div[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
+// ─── CURSOR GLOW ───
+const glow=document.getElementById('cursorGlow');document.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
 
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    const top = section.offsetTop - 100;
-    if (window.scrollY >= top) current = section.getAttribute('id');
-  });
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-  });
-});
+// ─── HAMBURGER ───
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(l=>l.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
-// Scroll fade-in animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
+// ─── INTERSECTION OBSERVER ───
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:0.1});
+document.querySelectorAll('.fade-in,.slide-left,.slide-right').forEach(el=>obs.observe(el));
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+// ─── ANIMATED COUNTERS ───
+const counterObs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){const el=entry.target;const target=parseInt(el.getAttribute('data-target'));const suffix=el.closest('.counter-item').querySelector('.counter-label').textContent.includes('%')?'%':'+';
+let current=0;const increment=target/60;const timer=setInterval(()=>{current+=increment;if(current>=target){current=target;clearInterval(timer)}
+el.textContent=Math.floor(current)+suffix},25);counterObs.unobserve(el)}})},{threshold:0.5});
+document.querySelectorAll('.counter-number[data-target]').forEach(el=>counterObs.observe(el));
+
+// ─── STAGGER SKILL TAGS ───
+const skillStaggerObs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){const parent=entry.target.closest('.skills-compact');if(parent){const tags=parent.querySelectorAll('.skill-stagger');tags.forEach((tag,i)=>{setTimeout(()=>tag.classList.add('visible'),i*80)})}
+skillStaggerObs.unobserve(entry.target)}})},{threshold:0.3});
+const firstSkillTag=document.querySelector('.skill-stagger');
+if(firstSkillTag)skillStaggerObs.observe(firstSkillTag);
 </script>
-
 </body>
 </html>

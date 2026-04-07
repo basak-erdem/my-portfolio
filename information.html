@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Information Management – Basak Erdem ePortfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<nav class="nav" id="mainNav"><div class="nav-inner"><a href="index.html" class="nav-brand">Basak Erdem <span>ePortfolio</span></a><ul class="nav-links" id="navLinks"><li><a href="index.html">Home</a></li><li><a href="index.html#introduction">Introduction</a></li><li><a href="resume.html">Resume</a></li><li><a href="communication.html">Communication</a></li><li><a href="numeracy.html">Numeracy</a></li><li><a href="critical-thinking.html">Critical</a></li><li><a href="information.html" class="active">Information</a></li><li><a href="interpersonal.html">Interpersonal</a></li><li><a href="personal.html">Personal</a></li></ul><button class="theme-toggle" id="themeToggle" title="Toggle theme"><svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button><button class="hamburger" id="hamburger">☰</button></div></nav>
+<div class="detail-hero" style="background:var(--bg-secondary)">
+<div class="detail-icon">📁</div>
+<h1>Information Management</h1>
+<p>Essential Employability Skill – Artifact & Reflection</p>
+<div class="detail-hero-bar" style="background:var(--skill-info)"></div>
+</div>
+<div class="detail-content">
+<div class="detail-grid">
+<div class="detail-card fade-in">
+<h2>Artifact</h2>
+<div class="artifact-display">
+<div class="art-icon">📁</div>
+<strong>File Management System</strong>
+<span>A professionally organized digital filing system demonstrating systematic classification, naming conventions, and efficient retrieval of records.</span>
+</div>
+<p style="font-size:13px;color:var(--text-muted);font-style:italic;text-align:center">The actual artifact document/screenshot can be embedded here.</p>
+</div>
+<div class="detail-card fade-in">
+<h2>Reflection</h2>
+<div class="self-assess">Self-Assessment: <strong>Exemplary</strong></div>
+<ul>
+<li>Designed an organized system ensuring documents are accessible, accurately labeled, and securely stored following professional naming conventions and folder structures</li>
+<li>Leveraged data entry experience at Divizone Inc. managing mail, courier packages, and office records, understanding the importance of systematic organization</li>
+<li>Learned the critical importance of confidentiality and accuracy in handling sensitive information, particularly in preparation for healthcare environments</li>
+<li>This skill directly applies to managing patient records, medical documents, and clinic correspondence with PHIPA compliance and privacy regulations</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="detail-nav">
+<a href="critical-thinking.html" class="btn btn-outline">← Previous</a>
+<a href="index.html" class="btn btn-outline">Home</a>
+<a href="interpersonal.html" class="btn">Next →</a>
+</div>
+<button class="back-to-top" id="backToTop" title="Back to top">↑</button>
+<footer class="footer">Basak Erdem ePortfolio · Medical Office Administration Program · Durham College</footer>
+<script>
+const toggle=document.getElementById("themeToggle"),ti=document.getElementById("themeIcon"),html=document.documentElement;
+const moonP='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',sunP='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+function setIcon(t){ti.innerHTML=t==="dark"?moonP:sunP}
+toggle.addEventListener("click",()=>{toggle.classList.add("rotating");setTimeout(()=>toggle.classList.remove("rotating"),500);const n=html.getAttribute("data-theme")==="dark"?"light":"dark";html.setAttribute("data-theme",n);setIcon(n);localStorage.setItem("theme",n)});
+const saved=localStorage.getItem("theme");if(saved){html.setAttribute("data-theme",saved);setIcon(saved)}
+window.addEventListener("scroll",()=>{const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;document.getElementById("scrollProgress").style.width=(s/d)*100+"%";document.getElementById("mainNav").classList.toggle("scrolled",s>20);document.getElementById("backToTop").classList.toggle("show",s>400)});
+document.getElementById("backToTop").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+const glow=document.getElementById("cursorGlow");document.addEventListener("mousemove",e=>{glow.style.left=e.clientX+"px";glow.style.top=e.clientY+"px"});
+document.getElementById("hamburger").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("open"));
+document.querySelectorAll(".nav-links a").forEach(l=>l.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add("visible")})},{threshold:0.1});
+document.querySelectorAll(".fade-in").forEach(el=>obs.observe(el));
+</script>
+</body></html>
